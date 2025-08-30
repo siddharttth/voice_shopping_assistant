@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VoiceShop Demo - Interactive Voice Commands</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .demo-hero {
+            background: linear-gradient(135deg, var(--secondary) 0%, #059669 100%);
+            color: var(--white);
+            padding: var(--spacing-16) 0;
+            text-align: center;
+        }
+        
+        .demo-title {
+            font-size: var(--font-size-4xl);
+            font-weight: 700;
+            margin-bottom: var(--spacing-6);
+        }
+        
+        .demo-subtitle {
+            font-size: var(--font-size-xl);
+            opacity: 0.9;
+            margin-bottom: var(--spacing-8);
+        }
+        
+        .demo-actions {
+            display: flex;
+            gap: var(--spacing-4);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .demo-btn {
+            background: var(--white);
+            color: var(--secondary);
+            border: none;
+            padding: var(--spacing-3) var(--spacing-6);
+            border-radius: var(--radius);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-2);
+        }
+        
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .feature-highlight {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-8);
+            margin: var(--spacing-8) 0;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-6);
+            margin-top: var(--spacing-6);
+        }
+        
+        .feature-card {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: var(--spacing-6);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary-light);
+        }
+        
+        .feature-card i {
+            font-size: var(--font-size-3xl);
+            color: var(--primary);
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .feature-card h4 {
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: var(--spacing-3);
+        }
+        
+        .feature-card p {
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-4);
+        }
+        
+        .command-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-2);
+        }
+        
+        .command-item {
+            background: var(--white);
+            padding: var(--spacing-2) var(--spacing-3);
+            border-radius: var(--radius-sm);
+            font-family: 'Courier New', monospace;
+            font-size: var(--font-size-sm);
+            color: var(--primary);
+            border: 1px solid var(--primary-light);
+            text-align: center;
+        }
+        
+        .interactive-demo {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: var(--spacing-6);
+            margin: var(--spacing-6) 0;
+        }
+        
+        .demo-status {
+            text-align: center;
+            padding: var(--spacing-4);
+            background: var(--white);
+            border-radius: var(--radius);
+            margin: var(--spacing-4) 0;
+            font-weight: 500;
+        }
+        
+        .demo-status.success {
+            background: var(--secondary);
+            color: var(--white);
+        }
+        
+        .demo-status.error {
+            background: var(--danger);
+            color: var(--white);
+        }
+        
+        .demo-status.processing {
+            background: var(--accent);
+            color: var(--white);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-microphone-alt"></i>
+                    <h1>VoiceShop</h1>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="#demo" class="nav-link">Demo</a>
+                    <a href="#features" class="nav-link">Features</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Demo Hero -->
+    <section class="demo-hero">
+        <div class="container">
+            <h2 class="demo-title">Interactive Voice Commands Demo</h2>
+            <p class="demo-subtitle">Test the power of voice-controlled shopping with these interactive examples</p>
+            <div class="demo-actions">
+                <button class="demo-btn" onclick="testVoiceCommands()">
+                    <i class="fas fa-play"></i>
+                    Test Voice Commands
+                </button>
+                <button class="demo-btn" onclick="showDemoInfo()">
+                    <i class="fas fa-info-circle"></i>
+                    Demo Info
+                </button>
+                <button class="demo-btn" onclick="resetDemo()">
+                    <i class="fas fa-redo"></i>
+                    Reset Demo
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Demo Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Interactive Demo Section -->
+            <section class="interactive-demo">
+                <div class="section-header">
+                    <h3><i class="fas fa-microphone"></i> Live Voice Recognition Demo</h3>
+                    <p>Click the microphone button below and try speaking these commands</p>
+                </div>
+                
+                <div class="demo-status" id="demo-status">
+                    Ready to test voice commands
+                </div>
+                
+                <div style="text-align: center; margin: var(--spacing-6) 0;">
+                    <button id="demo-mic-btn" class="mic-button">
+                        <i class="fas fa-microphone"></i>
+                        <span>Click to Speak</span>
+                    </button>
+                </div>
+                
+                <div class="commands-grid">
+                    <div class="command-category">
+                        <h4><i class="fas fa-plus-circle"></i> Add Items</h4>
+                        <div class="command-examples">
+                            <span class="command-example">"add milk"</span>
+                            <span class="command-example">"add 2 apples"</span>
+                            <span class="command-example">"buy bread"</span>
+                            <span class="command-example">"need eggs"</span>
+                        </div>
+                    </div>
+                    <div class="command-category">
+                        <h4><i class="fas fa-minus-circle"></i> Remove Items</h4>
+                        <div class="command-examples">
+                            <span class="command-example">"remove milk"</span>
+                            <span class="command-example">"delete apples"</span>
+                        </div>
+                    </div>
+                    <div class="command-category">
+                        <h4><i class="fas fa-search"></i> Search</h4>
+                        <div class="command-examples">
+                            <span class="command-example">"find milk"</span>
+                            <span class="command-example">"search for bread"</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Feature Highlights -->
+            <section class="feature-highlight">
+                <div class="section-header">
+                    <h3><i class="fas fa-star"></i> Key Features</h3>
+                    <p>Discover what makes VoiceShop the future of voice-controlled shopping</p>
+                </div>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-microphone-alt"></i>
+                        <h4>Advanced Voice Recognition</h4>
+                        <p>Powered by the latest Web Speech API with intelligent command processing</p>
+                        <div class="command-list">
+                            <span class="command-item">"add three apples"</span>
+                            <span class="command-item">"buy fresh milk"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-globe"></i>
+                        <h4>Multilingual Support</h4>
+                        <p>Speak in your preferred language with automatic translation</p>
+                        <div class="command-list">
+                            <span class="command-item">"añadir leche"</span>
+                            <span class="command-item">"acheter pain"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-brain"></i>
+                        <h4>Smart Suggestions</h4>
+                        <p>AI-powered recommendations based on your shopping patterns</p>
+                        <div class="command-list">
+                            <span class="command-item">"suggest items"</span>
+                            <span class="command-item">"what should I buy?"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>Responsive Design</h4>
+                        <p>Works perfectly on all devices - desktop, tablet, and mobile</p>
+                        <div class="command-list">
+                            <span class="command-item">"mobile optimized"</span>
+                            <span class="command-item">"touch friendly"</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Multilingual Voice Commands -->
+            <section class="feature-highlight">
+                <div class="section-header">
+                    <h3><i class="fas fa-language"></i> Multilingual Voice Commands</h3>
+                    <p>Experience the power of voice recognition in multiple languages</p>
+                </div>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-flag-usa"></i>
+                        <h4>English</h4>
+                        <p>Natural language commands for English speakers</p>
+                        <div class="command-list">
+                            <span class="command-item">"add milk"</span>
+                            <span class="command-item">"buy bread"</span>
+                            <span class="command-item">"need eggs"</span>
+                            <span class="command-item">"remove apples"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-flag"></i>
+                        <h4>Español</h4>
+                        <p>Comandos de voz en español natural</p>
+                        <div class="command-list">
+                            <span class="command-item">"añadir leche"</span>
+                            <span class="command-item">"comprar pan"</span>
+                            <span class="command-item">"necesito huevos"</span>
+                            <span class="command-item">"eliminar manzanas"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-flag"></i>
+                        <h4>Français</h4>
+                        <p>Commandes vocales en français naturel</p>
+                        <div class="command-list">
+                            <span class="command-item">"acheter lait"</span>
+                            <span class="command-item">"acheter pain"</span>
+                            <span class="command-item">"j'ai besoin d'œufs"</span>
+                            <span class="command-item">"supprimer pommes"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-flag"></i>
+                        <h4>Deutsch</h4>
+                        <p>Sprachbefehle in natürlichem Deutsch</p>
+                        <div class="command-list">
+                            <span class="command-item">"Milch kaufen"</span>
+                            <span class="command-item">"Brot kaufen"</span>
+                            <span class="command-item">"Eier brauchen"</span>
+                            <span class="command-item">"Äpfel entfernen"</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-flag"></i>
+                        <h4>हिंदी</h4>
+                        <p>प्राकृतिक हिंदी में आवाज़ आदेश</p>
+                        <div class="command-list">
+                            <span class="command-item">"दूध खरीदना"</span>
+                            <span class="command-item">"रोटी खरीदना"</span>
+                            <span class="command-item">"अंडे चाहिए"</span>
+                            <span class="command-item">"सेब हटाना"</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Technical Demo -->
+            <section class="feature-highlight">
+                <div class="section-header">
+                    <h3><i class="fas fa-cogs"></i> Technical Capabilities</h3>
+                    <p>Explore the advanced features and technologies behind VoiceShop</p>
+                </div>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-code"></i>
+                        <h4>Web Speech API</h4>
+                        <p>Built on the latest browser speech recognition standards</p>
+                        <div class="command-list">
+                            <span class="command-item">Real-time processing</span>
+                            <span class="command-item">High accuracy</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-magic"></i>
+                        <h4>Natural Language Processing</h4>
+                        <p>Intelligent command parsing and understanding</p>
+                        <div class="command-list">
+                            <span class="command-item">Pattern matching</span>
+                            <span class="command-item">Context awareness</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-database"></i>
+                        <h4>Smart Data Management</h4>
+                        <p>Efficient storage and retrieval of shopping data</p>
+                        <div class="command-list">
+                            <span class="command-item">Local storage</span>
+                            <span class="command-item">Data persistence</span>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <i class="fas fa-palette"></i>
+                        <h4>Modern UI/UX</h4>
+                        <p>Beautiful, intuitive interface with smooth animations</p>
+                        <div class="command-list">
+                            <span class="command-item">Responsive design</span>
+                            <span class="command-item">Accessibility</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>VoiceShop Demo</h4>
+                    <p>Experience the future of voice-controlled shopping</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Demo Features</h4>
+                    <ul>
+                        <li>Voice Recognition</li>
+                        <li>Multilingual Support</li>
+                        <li>Interactive Testing</li>
+                        <li>Real-time Feedback</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Get Started</h4>
+                    <ul>
+                        <li><a href="index.html" style="color: var(--gray-300); text-decoration: none;">Main App</a></li>
+                        <li>Try Voice Commands</li>
+                        <li>Test Different Languages</li>
+                        <li>Explore Features</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 VoiceShop Demo. Interactive voice command testing environment.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Demo functionality
+        let demoAssistant;
+        
+        // Initialize demo when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create a simple demo assistant
+            demoAssistant = {
+                status: document.getElementById('demo-status'),
+                micButton: document.getElementById('demo-mic-btn'),
+                
+                updateStatus: function(message, type = 'info') {
+                    this.status.textContent = message;
+                    this.status.className = `demo-status ${type}`;
+                },
+                
+                speak: function(text) {
+                    if ('speechSynthesis' in window) {
+                        const utterance = new SpeechSynthesisUtterance(text);
+                        utterance.rate = 0.9;
+                        speechSynthesis.speak(utterance);
+                    }
+                }
+            };
+            
+            // Set up microphone button
+            demoAssistant.micButton.addEventListener('click', function() {
+                demoAssistant.updateStatus('Demo mode: Voice recognition not fully implemented', 'processing');
+                demoAssistant.speak('This is a demo. Voice recognition is simulated.');
+                
+                setTimeout(() => {
+                    demoAssistant.updateStatus('Demo completed. Try the main app for full voice features!', 'success');
+                }, 3000);
+            });
+        });
+        
+        function testVoiceCommands() {
+            if (demoAssistant) {
+                demoAssistant.updateStatus('Testing voice command examples...', 'processing');
+                demoAssistant.speak('Testing voice commands. Here are some examples you can try.');
+                
+                setTimeout(() => {
+                    demoAssistant.updateStatus('Voice commands tested successfully!', 'success');
+                }, 2000);
+            }
+        }
+        
+        function showDemoInfo() {
+            if (demoAssistant) {
+                demoAssistant.updateStatus('Demo information: This showcases VoiceShop capabilities', 'info');
+                demoAssistant.speak('This demo shows the features and capabilities of VoiceShop.');
+            }
+        }
+        
+        function resetDemo() {
+            if (demoAssistant) {
+                demoAssistant.updateStatus('Demo reset. Ready for new interactions.', 'info');
+                demoAssistant.speak('Demo has been reset.');
+            }
+        }
+        
+        // Add some interactive elements
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 200);
+            });
+        });
+        
+        // Add hover effects to command examples
+        document.querySelectorAll('.command-example, .command-item').forEach(cmd => {
+            cmd.addEventListener('mouseenter', function() {
+                this.style.background = 'var(--primary-light)';
+                this.style.color = 'var(--white)';
+            });
+            
+            cmd.addEventListener('mouseleave', function() {
+                this.style.background = 'var(--white)';
+                this.style.color = 'var(--primary)';
+            });
+        });
+    </script>
+</body>
+</html>

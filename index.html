@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Shopping Assistant - AI-Powered Shopping</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-microphone-alt"></i>
+                    <h1>VoiceShop</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#how-it-works" class="nav-link">How It Works</a>
+                    <a href="#demo" class="nav-link">Demo</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h2 class="hero-title">Shop with Your Voice</h2>
+                    <p class="hero-subtitle">The future of shopping is here. Simply speak to add items, manage your list, and get smart suggestions - all powered by AI voice recognition.</p>
+                    <div class="hero-actions">
+                        <button id="mic-btn" class="mic-button">
+                            <i class="fas fa-microphone"></i>
+                            <span>Click to Speak</span>
+                        </button>
+                        <div class="hero-status" id="status">Ready to listen</div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="voice-waves">
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Language Selection -->
+            <section class="language-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-globe"></i> Language Settings</h3>
+                    <p>Choose your preferred language for voice commands</p>
+                </div>
+                <div class="language-controls">
+                    <select id="language-select" class="language-select">
+                        <option value="en-US">🇺🇸 English (US)</option>
+                        <option value="es-ES">🇪🇸 Español</option>
+                        <option value="fr-FR">🇫🇷 Français</option>
+                        <option value="de-DE">🇩🇪 Deutsch</option>
+                        <option value="hi-IN">🇮🇳 हिंदी</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Shopping List Section -->
+            <section class="shopping-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-shopping-cart"></i> Your Shopping List</h3>
+                    <p>Items you've added through voice commands</p>
+                </div>
+                <div class="shopping-content">
+                    <div class="list-container">
+                        <div id="shopping-list" class="shopping-list">
+                            <div class="empty-state">
+                                <i class="fas fa-microphone-alt"></i>
+                                <p>Say "add milk" or "buy bread" to start your list</p>
+                            </div>
+                        </div>
+                        <div class="list-actions">
+                            <button id="clear-list" class="action-btn danger">
+                                <i class="fas fa-trash"></i>
+                                Clear All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Smart Suggestions -->
+            <section class="suggestions-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-lightbulb"></i> Smart Suggestions</h3>
+                    <p>AI-powered recommendations based on your list</p>
+                </div>
+                <div class="suggestions-grid" id="suggestions">
+                    <div class="suggestion-card">
+                        <i class="fas fa-utensils"></i>
+                        <h4>Kitchen Essentials</h4>
+                        <p>Based on your dairy items</p>
+                    </div>
+                    <div class="suggestion-card">
+                        <i class="fas fa-apple-alt"></i>
+                        <h4>Fresh Produce</h4>
+                        <p>Healthy additions to your list</p>
+                    </div>
+                    <div class="suggestion-card">
+                        <i class="fas fa-bread-slice"></i>
+                        <h4>Bakery Items</h4>
+                        <p>Fresh bread and pastries</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Search Section -->
+            <section class="search-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-search"></i> Search Products</h3>
+                    <p>Find specific items or browse categories</p>
+                </div>
+                <div class="search-controls">
+                    <div class="search-input-group">
+                        <input type="text" id="search-input" class="search-input" placeholder="Search for products...">
+                        <button id="search-btn" class="search-btn">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="search-results" class="search-results"></div>
+            </section>
+
+            <!-- Voice Commands Guide -->
+            <section class="commands-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-microphone"></i> Voice Commands</h3>
+                    <p>Learn how to interact with your voice assistant</p>
+                </div>
+                <div class="commands-grid">
+                    <div class="command-category">
+                        <h4><i class="fas fa-plus-circle"></i> Add Items</h4>
+                        <div class="command-examples">
+                            <span class="command-example">"add milk"</span>
+                            <span class="command-example">"add 2 apples"</span>
+                            <span class="command-example">"buy bread"</span>
+                            <span class="command-example">"need eggs"</span>
+                        </div>
+                    </div>
+                    <div class="command-category">
+                        <h4><i class="fas fa-globe"></i> Multilingual</h4>
+                        <div class="command-examples">
+                            <span class="command-example">"añadir leche"</span>
+                            <span class="command-example">"acheter lait"</span>
+                            <span class="command-example">"kaufen Brot"</span>
+                        </div>
+                    </div>
+                    <div class="command-category">
+                        <h4><i class="fas fa-minus-circle"></i> Remove Items</h4>
+                        <div class="command-examples">
+                            <span class="command-example">"remove milk"</span>
+                            <span class="command-example">"delete apples"</span>
+                        </div>
+                    </div>
+                    <div class="command-category">
+                        <h4><i class="fas fa-search"></i> Search</h4>
+                        <div class="command-examples">
+                            <span class="command-example">"find milk"</span>
+                            <span class="command-example">"search for bread"</span>
+                        </div>
+                    </div>
+                    <div class="command-category">
+                        <h4><i class="fas fa-trash"></i> Manage List</h4>
+                        <div class="command-examples">
+                            <span class="command-example">"clear list"</span>
+                            <span class="command-example">"empty list"</span>
+                        </div>
+                    </div>
+                    <div class="command-category">
+                        <h4><i class="fas fa-question-circle"></i> Get Help</h4>
+                        <div class="command-examples">
+                            <span class="command-example">"help"</span>
+                            <span class="command-example">"ayuda"</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Debug Controls -->
+            <section class="debug-section">
+                <div class="section-header">
+                    <h3><i class="fas fa-tools"></i> Troubleshooting</h3>
+                    <p>Tools to help diagnose and fix voice recognition issues</p>
+                </div>
+                <div class="debug-controls">
+                    <button id="test-mic" class="debug-btn">
+                        <i class="fas fa-microphone"></i>
+                        Test Microphone
+                    </button>
+                    <button id="debug-info" class="debug-btn">
+                        <i class="fas fa-info-circle"></i>
+                        Debug Info
+                    </button>
+                    <button id="retry-voice" class="debug-btn retry-btn" style="display: none;">
+                        <i class="fas fa-redo"></i>
+                        Retry Voice
+                    </button>
+                    <button id="test-command" class="debug-btn">
+                        <i class="fas fa-play"></i>
+                        Test Commands
+                    </button>
+                </div>
+                <div class="troubleshooting-tips">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Voice not working?</h4>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Use Chrome or Edge browser</li>
+                        <li><i class="fas fa-check"></i> Allow microphone access when prompted</li>
+                        <li><i class="fas fa-check"></i> Speak clearly and wait for "Listening..."</li>
+                        <li><i class="fas fa-check"></i> Check browser console for errors</li>
+                        <li><i class="fas fa-check"></i> Ensure stable internet connection</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>VoiceShop</h4>
+                    <p>The future of voice-controlled shopping</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Features</h4>
+                    <ul>
+                        <li>Voice Recognition</li>
+                        <li>Smart Suggestions</li>
+                        <li>Multilingual Support</li>
+                        <li>AI-Powered</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li>Help Center</li>
+                        <li>Troubleshooting</li>
+                        <li>Browser Compatibility</li>
+                        <li>Contact Us</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 VoiceShop. Built with modern web technologies.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
